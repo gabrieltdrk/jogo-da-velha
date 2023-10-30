@@ -1,4 +1,5 @@
-﻿using System.Runtime.Intrinsics.Arm;
+﻿using System.Data.Common;
+using System.Runtime.Intrinsics.Arm;
 
 class Tic_Tac_Moji
 {
@@ -64,10 +65,10 @@ class Tic_Tac_Moji
     // INPUTAR O EMOJI DO TURNO
     public void InputKey(ref int turn)
     {
+        ChangeTurn(ref turn);
+        ShowGame();
         do
         {
-            ChangeTurn(ref turn);
-            ShowGame();
             string a;
             do
             {
@@ -89,17 +90,49 @@ class Tic_Tac_Moji
                     };
                 }
             }
+            ChangeTurn(ref turn);
+            ShowGame();
         } while (!WinCondition());
     }
 
     public bool WinCondition()
     {
-        int a = 0;
-        int b = 0;
-        for (int column = 0; column < 3; column++)
-        { 
-            Game[0, column] == this.Emoji1 ? a++ : b++;
-        }
+        Random random = new Random(3);
+        string[] frases = { ", isso foi fácil demais, não?", ", boas jogadas resultam nessa vitória", ", molezinha em?!" };
+        //for (int column = 0; column < 3; column++)
+        //{
+        //    if (Game[0, column] == this.Emoji1) {
+        //        a++;
+        //        if (a++ == 3) { return true; }
+        //    } else if(Game[0, column] == this.Emoji2) {
+        //        b++;
+        //        if (b++ == 3) { return true; }
+        //    }
+        //}
+
+        // PLAYER 1 (LINHAS)
+        if (Game[0,0] == this.Emoji1 && Game[0,1] == this.Emoji1 && Game[0,2] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        if (Game[1,0] == this.Emoji1 && Game[1,1] == this.Emoji1 && Game[1,2] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        if (Game[2, 0] == this.Emoji1 && Game[2, 1] == this.Emoji1 && Game[2, 2] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        // PLAYER 1 (COLUNAS)
+        if (Game[0, 0] == this.Emoji1 && Game[1, 0] == this.Emoji1 && Game[2, 0] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        if (Game[0, 1] == this.Emoji1 && Game[1, 1] == this.Emoji1 && Game[2, 1] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        if (Game[0, 2] == this.Emoji1 && Game[1, 2] == this.Emoji1 && Game[2, 2] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        // PLAYER 1 (X)
+        if (Game[0, 0] == this.Emoji1 && Game[1, 1] == this.Emoji1 && Game[2, 2] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+        if (Game[0, 2] == this.Emoji1 && Game[1, 1] == this.Emoji1 && Game[2, 0] == this.Emoji1) { Console.WriteLine($"Parabéns, o {this.Player1} ganhou!!! {this.Emoji1} {this.Emoji1} {this.Emoji1}"); return true; }
+
+        // PLAYER 2 (LINHAS)
+        if (Game[0, 0] == this.Emoji2 && Game[0, 1] == this.Emoji2 && Game[0, 2] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        if (Game[1, 0] == this.Emoji2 && Game[1, 1] == this.Emoji2 && Game[1, 2] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        if (Game[2, 0] == this.Emoji2 && Game[2, 1] == this.Emoji2 && Game[2, 2] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        // PLAYER 2 (COLUNAS)
+        if (Game[0, 0] == this.Emoji2 && Game[1, 0] == this.Emoji2 && Game[2, 0] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        if (Game[0, 1] == this.Emoji2 && Game[1, 1] == this.Emoji2 && Game[2, 1] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        if (Game[0, 2] == this.Emoji2 && Game[1, 2] == this.Emoji2 && Game[2, 2] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        // PLAYER 2 (X)
+        if (Game[0, 0] == this.Emoji2 && Game[1, 1] == this.Emoji2 && Game[2, 2] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
+        if (Game[0, 2] == this.Emoji2 && Game[1, 1] == this.Emoji2 && Game[2, 0] == this.Emoji2) { Console.WriteLine($"Parabéns, o {this.Player2} ganhou!!! {this.Emoji2} {this.Emoji2} {this.Emoji2}"); return true; }
         return false;
     }
 
@@ -127,16 +160,6 @@ class Tic_Tac_Moji
             Console.WriteLine("");
         }
     }
-    //public void InputNumber(s number)
-    //{
-    //    for(int row = 0; row < 3; row++)
-    //    {
-    //        for (int column = 0; column < 3; column++)
-    //        {
-    //            number == game[row, column] ? number;
-    //        }
-    //    }
-    //}
 }
 
 class Program
@@ -161,24 +184,11 @@ class Program
 
         Tic_Tac_Moji NewGame = new Tic_Tac_Moji(player1, emoji1, player2, emoji2);
 
-        //NewGame.SlowText("Seja bem-vindo ao Tic-Tac-Moji, um jogo da velha com emojis.", true);
-        //NewGame.SlowText("A seguir, o jogo decidirá aleatoriamente quais dos jogadores começará a partida, assim, deverão utilizar os números de " +
-        //    "1 a 9, para substituir os números das casas, por emoji.", true);
-        
+        NewGame.SlowText("Seja bem-vindo ao Tic-Tac-Moji, um jogo da velha com emojis.", true);
+        NewGame.SlowText("A seguir, o jogo decidirá aleatoriamente quais dos jogadores começará a partida, assim, deverão utilizar os números de " +
+            "1 a 9, para substituir os números das casas, por emoji.", true);
+
         NewGame.InputKey(ref turn);
-
-
-
-
-
-
-        //Console.WriteLine(NewGame.Game[0, 2]); // VALE 3
-
-
-        //do
-        //{
-
-        //} while (true);
 
     }
 }
