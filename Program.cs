@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Runtime.Intrinsics.Arm;
 
 class Tic_Tac_Moji
@@ -65,8 +66,7 @@ class Tic_Tac_Moji
     // INPUTAR O EMOJI DO TURNO
     public void InputKey(ref int turn)
     {
-        ChangeTurn(ref turn);
-        ShowGame();
+        ChooseTurn(ref turn);
         do
         {
             string a;
@@ -83,15 +83,18 @@ class Tic_Tac_Moji
                     if (Game[row, column] == a && turn == 1)
                     {
                         Game[row, column] = this.Emoji1;
-                    };
+                        ChangeTurn(ref turn);
+                        ShowGame();
+                    }; 
                     if (Game[row, column] == a && turn == 2)
                     {
                         Game[row, column] = this.Emoji2;
+                        ChangeTurn(ref turn);
+                        ShowGame();
                     };
                 }
             }
-            ChangeTurn(ref turn);
-            ShowGame();
+            
         } while (!WinCondition());
     }
 
@@ -142,7 +145,7 @@ class Tic_Tac_Moji
         foreach (char c in texto)
         {
             Console.Write(c);
-            Thread.Sleep(50); // Atraso de 100 milissegundos (0,1 segundo)
+            Thread.Sleep(50);
         }
         Console.WriteLine();
         Thread.Sleep(3000);
@@ -166,7 +169,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.InputEncoding = System.Text.Encoding.Unicode; // FAZER COM QUE O CONSOLE POSSA INSERIR EMOJIS;
+        Console.Title = "Tic-Tac-Moji";
+        Console.InputEncoding = System.Text.Encoding.UTF8; // FAZER COM QUE O CONSOLE POSSA INSERIR EMOJIS;
         Console.OutputEncoding = System.Text.Encoding.Unicode; // FAZER COM QUE O CONSOLE POSSA MOSTRAR EMOJIS;
         int turn = 0; // VEZ DE QUEM COMEÇA;
 
@@ -184,9 +188,9 @@ class Program
 
         Tic_Tac_Moji NewGame = new Tic_Tac_Moji(player1, emoji1, player2, emoji2);
 
-        NewGame.SlowText("Seja bem-vindo ao Tic-Tac-Moji, um jogo da velha com emojis.", true);
-        NewGame.SlowText("A seguir, o jogo decidirá aleatoriamente quais dos jogadores começará a partida, assim, deverão utilizar os números de " +
-            "1 a 9, para substituir os números das casas, por emoji.", true);
+        //NewGame.SlowText("Seja bem-vindo ao Tic-Tac-Moji, um jogo da velha com emojis.", true);
+        //NewGame.SlowText("A seguir, o jogo decidirá aleatoriamente quais dos jogadores começará a partida, assim, deverão utilizar os números de " +
+        //    "1 a 9, para substituir os números das casas, por emoji.", true);
 
         NewGame.InputKey(ref turn);
 
