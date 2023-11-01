@@ -9,7 +9,6 @@ Descrição WIP
 
 ### ⚒️ Bugs conhecidos: 
 
-- Não é possível dar velha (WIP)
 - É possivel inserir mais que letras;
 - O input/output de emoji só funciona no Windows Terminal (CMD do Windows 11)
 
