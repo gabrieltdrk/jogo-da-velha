@@ -1,8 +1,4 @@
-﻿//using System;
-//using System.Data.Common;
-//using System.Runtime.Intrinsics.Arm;
-
-//class Tic_Tac_Moji
+﻿//class Tic_Tac_Moji
 //{
 
 //    public string Player1 { get; set; }
@@ -196,9 +192,6 @@
 
 //    }
 //}
-
-using System.Runtime.CompilerServices;
-
 public class Tic_Tac_Moji
 {
     public string[] Player { get; set; } = { "", "" };
@@ -239,11 +232,11 @@ public class Tic_Tac_Moji
     public void ShowInformations()
     {
         Console.Clear();
-        SlowText($"Jogador 1 - {this.Player[0]}", false);
-        SlowText($"Emoji 1 - {this.Emoji[0]}", false);
+        SlowText($"Jogador 1 - {this.Player[0]}".ToUpper(), false);
+        SlowText($"Emoji 1 - {this.Emoji[0]}".ToUpper(), false);
         Console.WriteLine("---------- x ----------");
-        SlowText($"Jogador 2 - {this.Player[1]}", false);
-        SlowText($"Emoji 2 - {this.Emoji[1]}", false);
+        SlowText($"Jogador 2 - {this.Player[1]}".ToUpper(), false);
+        SlowText($"Emoji 2 - {this.Emoji[1]}".ToUpper(), false);
         Thread.Sleep(3000);
         Console.Clear();
     }
@@ -318,7 +311,7 @@ public class Tic_Tac_Moji
         Console.Clear();
     }
 
-    public bool WinCondition()
+    public bool WinCondition(ref int rounds)
     {
         // TESTA AS CONDIÇÕES DE VITORIA POR COLUNA
         for (int row = 0; row < 3; row++)
@@ -358,6 +351,8 @@ public class Tic_Tac_Moji
                 }
             }
         }
+        // SOMA ROUNDS
+        rounds++;
         // TESTA AS CONDICOES DE VITORIA CRUZADA
             // PLAYER 1
         if (Game[0, 0] == this.Emoji[0] && Game[1, 1] == this.Emoji[0] && Game[2, 2] == this.Emoji[0]) { Console.WriteLine($"Parabéns, o {this.Player[1]} ganhou!!! {this.Emoji[0]} {this.Emoji[0]} {this.Emoji[0]}"); return true; }
@@ -365,7 +360,9 @@ public class Tic_Tac_Moji
             // PLAYER 2
         if (Game[0, 0] == this.Emoji[1] && Game[1, 1] == this.Emoji[1] && Game[2, 2] == this.Emoji[1]) { Console.WriteLine($"Parabéns, o {this.Player[1]} ganhou!!! {this.Emoji[1]} {this.Emoji[1]} {this.Emoji[1]}"); return true; }
         if (Game[0, 2] == this.Emoji[1] && Game[1, 1] == this.Emoji[1] && Game[2, 0] == this.Emoji[1]) { Console.WriteLine($"Parabéns, o {this.Player[1]} ganhou!!! {this.Emoji[1]} {this.Emoji[1]} {this.Emoji[1]}"); return true; }
-
+        
+        // DEU VELHA!
+        if (rounds == 10 && !WinCondition(ref rounds)) { Console.WriteLine("Deu velha!"); return true; }
         return false;
     }
 }
@@ -382,6 +379,8 @@ class Program
         Tic_Tac_Moji NewGame = new Tic_Tac_Moji();
         // TURNO COMEÇA EM 0 - É TIRADO UM "CARA OU COROA" PRA VER QUEM VAI COMEÇAR
         int turn = 0;
+        // RODADAS
+        int rounds = 0;
 
         // MENSAGENS DO COMEÇO DO JOGO
         NewGame.StartGame();
@@ -389,7 +388,7 @@ class Program
         // CRIAÇÃO DOS PLAYERS - NOME E LETRA/EMOJI
         for (int players = 0; players < 2; players++)
         {
-            Console.Write($"Informe o nome do jogador {players + 1}: ");
+            Console.Write($"Informe o nome do jogador {players + 1}: ".ToUpper());
             NewGame.Player[players] = Console.ReadLine();
             Console.Write("Informe o emoji a ser usado: ".ToUpper());
             NewGame.Emoji[players] = Console.ReadLine();
@@ -399,12 +398,12 @@ class Program
         // ALEATORIZA QUEM VAI COMEÇAR
         NewGame.ChooseTurn(ref turn);
         // INFORMA QUEM VAI COMEÇAR
-        NewGame.SlowText($"O jogador que começará vai ser... ... ... ... ... ... {NewGame.Player[turn - 1]}", false);
+        NewGame.SlowText($"O jogador que começará vai ser . . . . . . . . . : {NewGame.Player[turn - 1]}".ToUpper(), false);
         // MOSTRA A TELA 3 x 3
         NewGame.ShowGame();
 
         // JOGO SÓ PARA QUANDO COMPARA AS CONDICOES DE VITORIA
-        while (!NewGame.WinCondition())
+        while (!NewGame.WinCondition(ref rounds))
         {
             NewGame.ChangeTurn(ref turn);
             NewGame.InputKey(ref turn);
