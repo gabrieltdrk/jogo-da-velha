@@ -220,8 +220,11 @@ public class Tic_Tac_Moji
     public void StartGame()
     {
         SlowText("Seja bem-vindo ao Tic-Tac-Moji, um jogo da velha de emojis.".ToUpper(), true);
-        SlowText("Aqui, será possível informar os nomes dos jogadores e os emojis que serão utilizados...".ToUpper(), true);
-        SlowText("Para inserir seu emoji na casa desejada, basta informar no console um número de 1-9 e apertar ENTER.".ToUpper(), true);
+        SlowText("Aqui, será possível informar os nomes dos jogadores e os emojis que serão utilizados durante a partida...".ToUpper(), true);
+        SlowText("Para inputar seu emoji, basta apertar WINDOWS + PONTO e aparecerá a janela de emojis".ToUpper(), true);
+        SlowText("Caso esteja utilizando o Windows 10 obrigatoriamente o 'emoji' deverá ser substituido por uma letra, pois o CMD não reconhece os emojis inputados".ToUpper(), true);
+        SlowText("No windows 11, ao inputar os emojis, eles aparecem de forma bugada no console, porém, sua visualização durante o jogo fica normal!".ToUpper(), true);
+        SlowText("Para inseri-lo na casa desejada, basta informar no console um número de 1-9 e apertar ENTER.".ToUpper(), true);
         ShowGame();
         Thread.Sleep(3000);
         Console.Clear();
